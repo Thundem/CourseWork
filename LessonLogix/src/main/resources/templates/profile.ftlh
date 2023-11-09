@@ -4,6 +4,7 @@
     <title>LessonLogix</title>
 </head>
 <body>
+<h1>Персональний кабінет</h1>
 <h4>Користувач: ${user.name}</h4>
 <b>Номер телефону: </b>${user.phoneNumber}<br>
 <b>Ел. пошта: </b>${user.email}<br>

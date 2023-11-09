@@ -60,14 +60,4 @@ public class LessonsController {
         lessonsService.deleteAllLessons(day);
         return "redirect:/";
     }
-
-//    @GetMapping("/day_homework/{dayOfWeek}")
-//    public String dayHomeworkInfo(@RequestParam(name = "name", required = false) String name, @PathVariable String dayOfWeek, Model model) {
-//        // Отримати список предметів для конкретного дня тижня (dayOfWeek)
-//        List<Subject> lessons = null;
-//
-//        if ("Понеділок".equals(dayOfWeek)) {
-//
-//        }
-//    }
 }

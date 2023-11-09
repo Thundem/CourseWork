@@ -47,5 +47,18 @@ public class LessonsService {
         lessonRepository.deleteAll(lessonsToDelete);
     }
 
+    public Subject getLessonById(Long id) {
+        return lessonRepository.findById(id).orElse(null);
+    }
+
+    public void updateHomework(Long id, String updatedHomework, DayOfWeek dayOfWeek) {
+        Optional<Subject> lesson = lessonRepository.findById(id);
+
+        if (lesson.isPresent() && lesson.get().getDayOfWeek() == dayOfWeek) {
+            lesson.get().setHomework(updatedHomework);
+            lessonRepository.save(lesson.get());
+        }
+    }
+
 }
 
