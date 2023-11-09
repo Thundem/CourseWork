@@ -24,6 +24,10 @@
             padding: 10px; /* Забрати внутрішній відступ */
         }
 
+        .spaceDown{
+            margin-top: 15px;
+        }
+
         .form{}
 
         .logout-button {
@@ -57,6 +61,12 @@
         <a href="login"> Ввійти</a>
     </#if>
 </h1>
+<form>
+    <#if user.isAdmin()>
+        <a href="/admin">Панель адміністратора</a>
+    </#if>
+    <div class="spaceDown"></div>
+</form>
 
 <div class="days-row">
     <#list lessonsByDay as dayOfWeek, lessons>
