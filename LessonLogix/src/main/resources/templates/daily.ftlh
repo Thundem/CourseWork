@@ -10,6 +10,15 @@
             padding: 0;
         }
 
+        .icon-container {
+            text-align: center;
+        }
+
+        .icon-container img {
+            width: 100px; /* Розмір іконки */
+            height: 100px;
+        }
+
         h1 {
             text-align: center;
             background-color: #4CAF50;
