@@ -211,12 +211,6 @@
         </form>
     </#if>
 </h1>
-<form>
-    <#if user.isAdmin()>
-        <a href="/admin">Панель адміністратора</a>
-    </#if>
-    <div class="spaceDown"></div>
-</form>
 
 <div class="days-row">
     <#list lessonsByDay as dayOfWeek, lessons>
