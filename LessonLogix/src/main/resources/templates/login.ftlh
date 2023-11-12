@@ -50,8 +50,14 @@
 <h1>LessonLogix</h1>
 <h4>Авторизація</h4>
 <form action="/login" method="post">
-    Ел. пошта: <input type="email" name="username"><br><br>
-    Пароль: <input type="password" name="password"><br><br>
+    Ел. пошта:
+    <input type="email" name="username" value="<#if username??>${username}</#if>" required><br>
+    <span style="color: red;"><#if usernameError??>${usernameError}</#if></span><br>
+
+    Пароль:
+    <input type="password" name="password" required><br>
+    <span style="color: red;"><#if passwordError??>${passwordError}</#if></span><br>
+
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Вхід">
     <div style="text-align: center; margin-top: 10px"><a href="/registration">Зареєструватися</a></div>

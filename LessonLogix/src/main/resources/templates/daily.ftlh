@@ -234,12 +234,21 @@
                     <tr>
                         <td>${lesson.name}</td>
                         <td>
-                            <form action="/lesson/delete/one" method="post">
-                                <input type="hidden" name="id" value="${lesson.id}">
-                                <input type="hidden" name="dayOfWeek" value="${dayOfWeek}">
-                                <input type="hidden" name="_csrf" value="${_csrf.token}">
-                                <input type="submit" value="Видалити">
-                            </form>
+                            <#if user.email??>
+                                <form action="/lesson/delete/one" method="post">
+                                    <input type="hidden" name="id" value="${lesson.id}">
+                                    <input type="hidden" name="dayOfWeek" value="${dayOfWeek}">
+                                    <input type="hidden" name="_csrf" value="${_csrf.token}">
+                                    <input type="submit" value="Видалити">
+                                </form>
+                                <#else>
+                                    <form action="/login" method="post">
+                                        <input type="hidden" name="id" value="${lesson.id}">
+                                        <input type="hidden" name="dayOfWeek" value="${dayOfWeek}">
+                                        <input type="hidden" name="_csrf" value="${_csrf.token}">
+                                        <input type="submit" value="Видалити">
+                                    </form>
+                            </#if>
                         </td>
                     </tr>
                 </#list>

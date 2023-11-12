@@ -1,5 +1,6 @@
 package com.example.LessonLogix.service;
 
+import com.example.LessonLogix.models.Image;
 import com.example.LessonLogix.models.User;
 import com.example.LessonLogix.models.enums.Role;
 import com.example.LessonLogix.repository.UserRepository;
