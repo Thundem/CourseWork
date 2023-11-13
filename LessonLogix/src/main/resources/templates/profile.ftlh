@@ -47,6 +47,7 @@
 </head>
 <body>
 <h1>Персональний кабінет</h1>
+<img src="/static/images/profile.png" alt="Профіль" border="1" style="width: 100px; height: 100px; border-radius: 50%">
 <h4>Користувач: ${user.name}</h4>
 <form>
     <#if user.isAdmin()>
