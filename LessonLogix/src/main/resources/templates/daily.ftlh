@@ -230,6 +230,7 @@
                     <th>Назва предмета</th>
                     <th>Дія</th>
                 </tr>
+                <#if user.email??>
                 <#list lessons as lesson>
                     <tr>
                         <td>${lesson.name}</td>
@@ -252,6 +253,7 @@
                         </td>
                     </tr>
                 </#list>
+                </#if>
             </table>
         </div>
         <div class="space"></div>

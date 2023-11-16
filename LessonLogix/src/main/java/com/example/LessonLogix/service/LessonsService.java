@@ -19,9 +19,15 @@ public class LessonsService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<Subject> getLessonsByDay(DayOfWeek dayOfWeek) {
-        return lessonRepository.findByDayOfWeek(dayOfWeek);
+    public List<Subject> getLessonsByDayAndUser(DayOfWeek day, User user) {
+        // Перевірте, чи користувач зареєстрований
+        if (user != null && user.getId() != null) {
+            return lessonRepository.findByDayOfWeekAndUser(day, user);
+        } else {
+            return Collections.emptyList();
+        }
     }
+
 
     public void addLesson(Principal principal, String homework, Subject lesson, DayOfWeek dayOfWeek) {
         lesson.setUser(getUserByPrincipal(principal));

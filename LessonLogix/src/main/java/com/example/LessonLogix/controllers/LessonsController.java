@@ -1,6 +1,7 @@
 package com.example.LessonLogix.controllers;
 
 import com.example.LessonLogix.models.Subject;
+import com.example.LessonLogix.models.User;
 import com.example.LessonLogix.service.LessonsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,25 +21,28 @@ public class LessonsController {
 
     @GetMapping("/")
     public String daily(Model model, Principal principal) {
-        List<DayOfWeek> customOrder = Arrays.asList
-                (
-                        DayOfWeek.MONDAY, DayOfWeek.TUESDAY,
-                        DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY,
-                        DayOfWeek.FRIDAY, DayOfWeek.SATURDAY
-                );
+        User user = lessonsService.getUserByPrincipal(principal);
 
-        Map<DayOfWeek, List<Subject>> lessonsByDay = new LinkedHashMap<>();
+        if (user != null) {
+            List<DayOfWeek> customOrder = Arrays.asList(
+                    DayOfWeek.MONDAY, DayOfWeek.TUESDAY,
+                    DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY,
+                    DayOfWeek.FRIDAY, DayOfWeek.SATURDAY
+            );
 
-        for (DayOfWeek dayOfWeek : customOrder) {
-            List<Subject> lessons = lessonsService.getLessonsByDay(dayOfWeek);
-            lessonsByDay.put(dayOfWeek, lessons);
+            Map<DayOfWeek, List<Subject>> lessonsByDay = new LinkedHashMap<>();
+
+            for (DayOfWeek dayOfWeek : customOrder) {
+                List<Subject> lessons = lessonsService.getLessonsByDayAndUser(dayOfWeek, user);
+                lessonsByDay.put(dayOfWeek, lessons);
+            }
+
+            model.addAttribute("lessonsByDay", lessonsByDay);
         }
 
-        model.addAttribute("lessonsByDay", lessonsByDay);
-        model.addAttribute("user", lessonsService.getUserByPrincipal(principal));
+        model.addAttribute("user", user);
         return "daily";
     }
-
 
     @PostMapping("/lesson/add")
     public String addLesson(@ModelAttribute Subject lesson, @RequestParam("dayOfWeek") String dayOfWeek, Principal principal, String homework) {

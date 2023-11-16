@@ -1,6 +1,7 @@
 package com.example.LessonLogix.controllers;
 
 import com.example.LessonLogix.models.Subject;
+import com.example.LessonLogix.models.User;
 import com.example.LessonLogix.service.LessonsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.DayOfWeek;
 import java.util.List;
 
@@ -18,13 +20,17 @@ public class HomeworkController {
     private LessonsService lessonsService;
 
     @GetMapping("/homework-info/{dayOfWeek}")
-    public String homeworkInfo(@PathVariable String dayOfWeek, Model model) {
-        // Отримати список предметів для конкретного дня тижня (dayOfWeek)
-        DayOfWeek day = DayOfWeek.valueOf(dayOfWeek);
-        List<Subject> lessons = lessonsService.getLessonsByDay(day);
+    public String homeworkInfo(@PathVariable String dayOfWeek, Model model, Principal principal) {
+        User user = lessonsService.getUserByPrincipal(principal);
 
-        model.addAttribute("dayOfWeek", dayOfWeek);
-        model.addAttribute("lessons", lessons);
+        if (user != null) {
+            // Отримати список предметів для конкретного дня тижня (dayOfWeek) і конкретного користувача
+            DayOfWeek day = DayOfWeek.valueOf(dayOfWeek);
+            List<Subject> lessons = lessonsService.getLessonsByDayAndUser(day, user);
+
+            model.addAttribute("dayOfWeek", dayOfWeek);
+            model.addAttribute("lessons", lessons);
+        }
 
         return "homework-info";
     }
