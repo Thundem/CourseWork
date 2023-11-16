@@ -83,7 +83,11 @@
     </form>
 </header>
 <h1>Персональний кабінет</h1>
-<img src="/static/images/profile.png" alt="Профіль">
+<#if user.avatar??>
+    <img src="/images/${user.avatar.id}" alt="Профіль">
+<#else>
+    <img src="/static/images/profile.png" alt="Профіль">
+</#if>
 <h4>Користувач: ${user.name}</h4>
 <form>
     <div class="spaceDown"></div>
