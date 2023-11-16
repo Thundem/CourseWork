@@ -74,13 +74,13 @@
 </head>
 <body>
 <h1>Редагування домашнього завдання для предмета: ${lesson.name}</h1>
-<form method="post" action="/save-updated-homework">
+<form method="post" action="/updated-homework">
     <input type="hidden" name="id" value="${lesson.id}">
     <input type="hidden" name="dayOfWeek" value="${dayOfWeek}">
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <table>
         <tr>
-            <td><label for="homework">Нове домашнє завдання:</label></td>
+            <td><label for="homework">Змініть домашнє завдання:</label></td>
         </tr>
         <tr>
             <td><input id="homework" name="homework" type="text" value="${lesson.homework!""}"></td>

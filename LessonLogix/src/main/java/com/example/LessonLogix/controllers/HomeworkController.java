@@ -40,8 +40,8 @@ public class HomeworkController {
         return "homework-edit";
     }
 
-    @PostMapping("/save-updated-homework")
-    public String saveUpdatedHomework(@RequestParam("id") Long id, @RequestParam("dayOfWeek") String dayOfWeek, @RequestParam("homework") String updatedHomework) {
+    @PostMapping("/updated-homework")
+    public String updatedHomework(@RequestParam("id") Long id, @RequestParam("dayOfWeek") String dayOfWeek, @RequestParam("homework") String updatedHomework) {
         DayOfWeek day = DayOfWeek.valueOf(dayOfWeek);
         lessonsService.updateHomework(id, updatedHomework, day);
 

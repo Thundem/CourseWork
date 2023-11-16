@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
@@ -23,12 +25,28 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public boolean createUser(User user){
+    public boolean createUser(User user, MultipartFile avatarFile){
         String email = user.getEmail();
         if (userRepository.findByEmail(email) != null) return false;
         user.setActive(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.getRoles().add(Role.ROLE_USER);
+
+        if (avatarFile != null && !avatarFile.isEmpty()) {
+            try {
+                Image avatar = new Image();
+                avatar.setName(avatarFile.getName());
+                avatar.setOriginalFileName(avatarFile.getOriginalFilename());
+                avatar.setSize(avatarFile.getSize());
+                avatar.setContentType(avatarFile.getContentType());
+                avatar.setBytes(avatarFile.getBytes());
+                user.setAvatar(avatar);
+            } catch (IOException e) {
+                // Обробте помилку обробки файлу
+                e.printStackTrace();
+            }
+        }
+
         log.info("Saving new User with email: {}", email);
         userRepository.save(user);
         return true;
@@ -73,4 +91,5 @@ public class UserService {
         if (principal == null) return new User();
         return userRepository.findByEmail(principal.getName());
     }
+
 }

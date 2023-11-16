@@ -7,17 +7,38 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f8f9fa;
             margin: 0;
             padding: 0;
+            text-align: center;
+            color: #343a40;
+            position: relative;
+        }
+
+        header {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 10px;
         }
 
         h1 {
-            color: #333;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 20px;
+            border: 3px solid #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
         }
 
         h4 {
-            color: #555;
+            color: #007bff;
+            margin-top: 10px;
         }
 
         form {
@@ -26,10 +47,17 @@
 
         a {
             text-decoration: none;
-            color: #007BFF;
+            color: #28a745;
             font-weight: bold;
-            display: inline-block;
-            margin-bottom: 10px;
+            border: 2px solid #28a745;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #28a745;
+            color: #fff;
         }
 
         .spaceDown {
@@ -37,28 +65,33 @@
         }
 
         b {
-            color: #333;
+            color: #343a40;
         }
 
-        h2 {
-            color: #FF0000;
+        #errorMessage {
+            color: #dc3545;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
+<header>
+    <form>
+        <#if user.isAdmin()>
+            <a href="/admin">Панель адміністратора</a>
+        </#if>
+    </form>
+</header>
 <h1>Персональний кабінет</h1>
-<img src="/static/images/profile.png" alt="Профіль" border="1" style="width: 100px; height: 100px; border-radius: 50%">
+<img src="/static/images/profile.png" alt="Профіль">
 <h4>Користувач: ${user.name}</h4>
 <form>
-    <#if user.isAdmin()>
-        <a href="/admin">Панель адміністратора</a>
-    </#if>
     <div class="spaceDown"></div>
 </form>
 <b>Номер телефону: </b>${user.phoneNumber}<br>
 <b>Ел. пошта: </b>${user.email}<br>
 <#if errorMessage??>
-    <h2>${errorMessage}</h2>
+    <h2 id="errorMessage">${errorMessage}</h2>
 </#if>
 </body>
 </html>

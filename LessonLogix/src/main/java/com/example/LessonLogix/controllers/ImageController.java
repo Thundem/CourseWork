@@ -2,7 +2,9 @@ package com.example.LessonLogix.controllers;
 
 import com.example.LessonLogix.models.Image;
 import com.example.LessonLogix.repository.ImageRepository;
+import com.example.LessonLogix.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.InputSourceEditor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
@@ -21,10 +23,15 @@ public class ImageController {
     @GetMapping("/images/{id}")
     private ResponseEntity<?> getImageById(@PathVariable Long id) {
         Image image = imageRepository.findById(id).orElse(null);
-        return ResponseEntity.ok()
-                .header("fileName", image.getOriginalFileName())
-                .contentType(MediaType.valueOf(image.getContentType()))
-                .contentLength(image.getSize())
-                .body(new InputStreamResource(new ByteArrayInputStream(image.getBytes())));
+
+        if (image != null) {
+            return ResponseEntity.ok()
+                    .header("fileName", image.getOriginalFileName())
+                    .contentType(MediaType.valueOf(image.getContentType()))
+                    .contentLength(image.getSize())
+                    .body(new InputStreamResource(new ByteArrayInputStream(image.getBytes())));
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

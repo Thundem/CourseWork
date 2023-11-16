@@ -5,6 +5,7 @@ import javax.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -32,9 +33,9 @@ public class User implements UserDetails{
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "image_id")
-    private com.example.LessonLogix.models.Image avatar;
+    private Image avatar;
 
-    @Column(name = "password", length =1000)
+    @Column(name = "password", length = 1000)
     private String password;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -46,6 +47,10 @@ public class User implements UserDetails{
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private List<Subject> lessons = new ArrayList<>();
     private LocalDateTime dateOfCreated;
+
+    @Transient
+    private MultipartFile avatarFile;
+
 
     @PrePersist
     private void init(){
