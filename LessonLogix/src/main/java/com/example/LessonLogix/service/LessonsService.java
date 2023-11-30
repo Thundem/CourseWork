@@ -28,7 +28,6 @@ public class LessonsService {
         }
     }
 
-
     public void addLesson(Principal principal, String homework, Subject lesson, DayOfWeek dayOfWeek) {
         lesson.setUser(getUserByPrincipal(principal));
         lesson.setHomework(homework);
@@ -46,11 +45,6 @@ public class LessonsService {
         if (lesson.isPresent() && lesson.get().getDayOfWeek() == dayOfWeek) {
             lessonRepository.deleteById(id);
         }
-    }
-
-    public void deleteAllLessons(DayOfWeek dayOfWeek) {
-        List<Subject> lessonsToDelete = lessonRepository.findByDayOfWeek(dayOfWeek);
-        lessonRepository.deleteAll(lessonsToDelete);
     }
 
     public Subject getLessonById(Long id) {

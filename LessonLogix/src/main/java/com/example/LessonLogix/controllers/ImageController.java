@@ -15,11 +15,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.ByteArrayInputStream;
 
+/**
+ * Контролер для роботи з зображеннями.
+ */
 @RestController
 @RequiredArgsConstructor
 public class ImageController {
     private final ImageRepository imageRepository;
 
+    /**
+     * Отримати зображення за його унікальним ідентифікатором.
+     *
+     * @param id Унікальний ідентифікатор зображення.
+     * @return Відповідь, що містить зображення та інформацію про нього.
+     */
     @GetMapping("/images/{id}")
     private ResponseEntity<?> getImageById(@PathVariable Long id) {
         Image image = imageRepository.findById(id).orElse(null);

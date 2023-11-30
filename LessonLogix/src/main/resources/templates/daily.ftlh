@@ -55,7 +55,7 @@
             font-size: 18px;
             padding: 10px 20px;
             margin-right: 10px;
-            margin-top: -35px;
+            margin-top: -38px;
             background-color: #0074d9; /* Колір фону */
             color: #fff; /* Колір тексту */
             border: none; /* Видалити рамку кнопки */
@@ -74,7 +74,7 @@
             font-size: 18px;
             padding: 10px 20px;
             margin-right: 10px;
-            margin-top: -35px;
+            margin-top: -38px;
             background-color: #0074d9; /* Колір фону */
             color: #fff; /* Колір тексту */
             border: none; /* Видалити рамку кнопки */
@@ -135,6 +135,17 @@
             margin-bottom: 15px;
         }
 
+        .form-row {
+            display: flex;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .form-row label {
+            margin-right: 10px;
+            min-width: 150px; /* Або інша фіксована ширина за вашим вибором */
+        }
+
         .form-container {
             display: flex;
             justify-content: space-between;
@@ -148,7 +159,7 @@
             padding: 20px;
             box-sizing: border-box;
             border-radius: 5px;
-            margin: 0 10px; /* Add margin to create space between the two forms */
+            margin: 0 10px;
         }
 
         .form h3 {
@@ -174,7 +185,7 @@
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 30px;
             margin-top: 10px;
             border-radius: 5px;
             cursor: pointer;
@@ -195,7 +206,7 @@
 
             .form {
                 flex: 0 0 100%;
-                margin: 0 0 20px; /* Add margin to create space between the two forms on smaller screens */
+                margin: 0 0 20px;
             }
         }
     </style>
@@ -261,35 +272,31 @@
 </div>
 
 <#if user.email??>
-<div class="form-container">
-    <form class="form" action="/lesson/add" method="post">
-        <h3>Додати предмет</h3>
-        <label for="name">Введіть предмет:</label>
-        <input type="text" name="name">
-        <label for="homework">Введіть домашнє завдання:</label>
-        <input type="text" name="homework">
-        <label for="dayOfWeek">Виберіть день:</label>
-        <select name="dayOfWeek">
-            <#list lessonsByDay?keys as dayOfWeek>
-                <option value="${dayOfWeek}">${dayOfWeek}</option>
-            </#list>
-        </select>
-        <input type="hidden" name="_csrf" value="${_csrf.token}">
-        <input type="submit" value="Додати">
-    </form>
-
-    <form class="form" action="/lesson/delete/all" method="post">
-        <h3>Видалити всі дані</h3>
-        <label for="dayOfWeek">Виберіть день:</label>
-        <select name="dayOfWeek">
-            <#list lessonsByDay?keys as dayOfWeek>
-                <option value="${dayOfWeek}">${dayOfWeek}</option>
-            </#list>
-        </select>
-        <input type="hidden" name="_csrf" value="${_csrf.token}">
-        <input type="submit" value="Очистити">
-    </form>
-</div>
+    <div class="form-container">
+        <div class="form">
+            <form action="/lesson/add" method="post">
+                <h3 style="text-align: center">Додати предмет</h3>
+                <div class="form-row">
+                    <label for="name">Введіть предмет:</label>
+                    <input type="text" name="name">
+                </div>
+                <div class="form-row">
+                    <label for="homework">Введіть домашнє завдання:</label>
+                    <input type="text" name="homework">
+                </div>
+                <div class="form-row">
+                    <label for="dayOfWeek">Виберіть день:</label>
+                    <select name="dayOfWeek">
+                        <#list lessonsByDay?keys as dayOfWeek>
+                            <option value="${dayOfWeek}">${dayOfWeek}</option>
+                        </#list>
+                    </select>
+                </div>
+                <input type="hidden" name="_csrf" value="${_csrf.token}">
+                <input type="submit" value="Додати">
+            </form>
+        </div>
+    </div>
 </#if>
 </body>
 </html>

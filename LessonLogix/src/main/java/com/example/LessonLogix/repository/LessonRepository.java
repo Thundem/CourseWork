@@ -14,5 +14,6 @@ public interface LessonRepository extends JpaRepository<Subject, Long> {
 
     List<Subject> findByDayOfWeekAndUser(DayOfWeek dayOfWeek, User user);
 
+    List<Subject> findByUser(User user);
     List<Subject> findByUserAndDayOfWeek(User user, DayOfWeek dayOfWeek);
 }
