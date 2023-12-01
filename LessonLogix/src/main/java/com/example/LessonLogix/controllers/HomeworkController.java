@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.time.DayOfWeek;
 import java.util.List;
-
 /**
  * Контролер для роботи з домашніми завданнями та предметами.
  */
@@ -74,7 +73,8 @@ public class HomeworkController {
      * @return Редірект на сторінку інформації про домашнє завдання після виконання дії.
      */
     @PostMapping("/updated-homework")
-    public String updatedHomework(@RequestParam("id") Long id, @RequestParam("dayOfWeek") String dayOfWeek, @RequestParam("homework") String updatedHomework) {
+    public String updatedHomework(@RequestParam("id") Long id, @RequestParam("dayOfWeek") String dayOfWeek,
+                                  @RequestParam("homework") String updatedHomework) {
         DayOfWeek day = DayOfWeek.valueOf(dayOfWeek);
         lessonsService.updateHomework(id, updatedHomework, day);
 

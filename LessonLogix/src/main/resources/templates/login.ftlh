@@ -23,6 +23,28 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        .alert {
+            padding: 15px;
+            margin: 20px auto 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            transition: 0.3s;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .success {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
         input[type="email"],
         input[type="password"] {
             width: 90%;
@@ -62,5 +84,12 @@
     <input type="submit" value="Вхід">
     <div style="text-align: center; margin-top: 10px"><a href="/registration">Зареєструватися</a></div>
 </form>
+<#if (successMessage?has_content)>
+    <div class="alert success">${successMessage}</div>
+</#if>
+
+<#if (errorMessage?has_content)>
+    <div class="alert error">${errorMessage}</div>
+</#if>
 </body>
 </html>

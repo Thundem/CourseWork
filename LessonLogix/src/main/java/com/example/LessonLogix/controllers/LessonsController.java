@@ -64,7 +64,8 @@ public class LessonsController {
      * @return Перенаправлення на головну сторінку з розкладом.
      */
     @PostMapping("/lesson/add")
-    public String addLesson(@ModelAttribute Subject lesson, @RequestParam("dayOfWeek") String dayOfWeek, Principal principal, String homework) {
+    public String addLesson(@ModelAttribute Subject lesson, @RequestParam("dayOfWeek") String dayOfWeek,
+                            Principal principal, String homework) {
         DayOfWeek day = DayOfWeek.valueOf(dayOfWeek);
         lessonsService.addLesson(principal, homework, lesson, day);
         return "redirect:/";

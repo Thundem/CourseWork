@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -44,17 +45,22 @@ public class UserController {
      *
      * @param user Об'єкт, що представляє нового користувача.
      * @param avatarFile Зображення аватара для нового користувача.
-     * @param model Модель для передачі даних у представлення.
+     * @param redirectAttributes Об'єкт для передачі атрибутів при редіректі.
      * @return Редірект на сторінку входу.
      */
     @PostMapping("/registration")
     public String createUser(@ModelAttribute("user") User user,
                              @RequestParam("avatarFile") MultipartFile avatarFile,
-                             Model model) {
+                             RedirectAttributes redirectAttributes) {
         if (!userService.createUser(user, avatarFile)) {
-            model.addAttribute("errorMessage", "Користувач з email:" + user.getEmail() + " вже існує");
-            return "/registration";
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    "Користувач з email:" + user.getEmail() + " вже існує");
+            return "redirect:/registration";
         }
+        redirectAttributes.addFlashAttribute(
+                "successMessage",
+                "Реєстрацію завершено. Введіть дані для входу."
+        );
         return "redirect:/login";
     }
 
