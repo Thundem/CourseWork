@@ -42,7 +42,6 @@ public class UserService {
                 avatar.setBytes(avatarFile.getBytes());
                 user.setAvatar(avatar);
             } catch (IOException e) {
-                // Обробте помилку обробки файлу
                 e.printStackTrace();
             }
         }
