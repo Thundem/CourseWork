@@ -39,7 +39,6 @@
             background-color: #d4edda;
             border: 1px solid #c3e6cb;
         }
-
         .error {
             color: #721c24;
             background-color: #f8d7da;
@@ -73,23 +72,22 @@
 <h4>Авторизація</h4>
 <form action="/login" method="post">
     Ел. пошта:
-    <input type="email" name="username" value="<#if username??>${username}</#if>" required><br>
-    <span style="color: red;"><#if usernameError??>${usernameError}</#if></span><br>
+    <input type="email" name="username" value="<#if username??>${username}</#if>" required><br><br>
 
     Пароль:
-    <input type="password" name="password" required><br>
-    <span style="color: red;"><#if passwordError??>${passwordError}</#if></span><br>
+    <input type="password" name="password" required><br><br>
 
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Вхід">
     <div style="text-align: center; margin-top: 10px"><a href="/registration">Зареєструватися</a></div>
 </form>
+
 <#if (successMessage?has_content)>
     <div class="alert success">${successMessage}</div>
 </#if>
-
-<#if (errorMessage?has_content)>
-    <div class="alert error">${errorMessage}</div>
+<#if (errorLogin?has_content)>
+    <div class="alert error">${errorLogin}</div>
 </#if>
+
 </body>
 </html>

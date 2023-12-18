@@ -45,7 +45,7 @@ public class UserController {
      *
      * @param user Об'єкт, що представляє нового користувача.
      * @param avatarFile Зображення аватара для нового користувача.
-     * @param redirectAttributes Об'єкт для передачі атрибутів при редіректі.
+     * @param redirectAttributes Об'єкт для передачі атрибутів при перенаправленні.
      * @return Редірект на сторінку входу.
      */
     @PostMapping("/registration")
@@ -54,7 +54,7 @@ public class UserController {
                              RedirectAttributes redirectAttributes) {
         if (!userService.createUser(user, avatarFile)) {
             redirectAttributes.addFlashAttribute("errorMessage",
-                    "Користувач з email:" + user.getEmail() + " вже існує");
+                    "Користувач з email: " + user.getEmail() + " вже існує");
             return "redirect:/registration";
         }
         redirectAttributes.addFlashAttribute(
@@ -73,14 +73,15 @@ public class UserController {
      * @return Назва представлення "login".
      */
     @PostMapping("/login")
-    public String login(@RequestParam(name = "error", required = false) String error,
+    public String loginUser(@RequestParam(name = "error", required = false) String error,
                         @RequestParam(name = "username", required = false) String username,
                         Model model) {
         if (error != null) {
             model.addAttribute(
-                    "usernameError",
+                    "errorLogin",
                     "Помилка входу: невірна електронна пошта або пароль"
             );
+            return "login";
         }
         model.addAttribute("username", username);
         return "login";
